@@ -59,7 +59,7 @@ public class TextBasedRPG {
         //3. let us input in a name for our character
         //4. give us a quest
         //5. it should end with a choice/decision
-
+        //6. s
     }
 
     public static void blueOrb() {
