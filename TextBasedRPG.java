@@ -29,9 +29,15 @@ public class TextBasedRPG {
         {
             blueOrb();
         }
-        if (choiceOrb.equalsIgnoreCase("a"))
+        else if (choiceOrb.equalsIgnoreCase("b"))
         {
             redOrb();
+        }
+        else {
+            System.out.println("Error. Try again.");
+            System.out.println("A. Blue Orb");
+            System.out.println("B. Red Orb");
+            choiceOrb = scan.nextLine();
         }
     }
 
