@@ -6,13 +6,8 @@ import java.util.Random;
 public class TextBasedRPG {
     public static Scanner scan = new Scanner(System.in);
     public static Random random = new Random();
-    //determines the amount of items you can carry
-    public static int maxItems = 5;
-    //this is your actual inventory
-    public static String[] inventory = new String[maxItems];
-
-
-
+    //setup player
+    public static Character mainPlayer = new Character("Player", 500);
 
     public static void main(String[] args)
     {
@@ -44,6 +39,8 @@ public class TextBasedRPG {
     public static void intro()
     {
         typewriter("Our story begins here...");
+        System.out.println("_____________________________________");
+
         typewriter("You are currently within the great big national Greens Park staring off at the orbs in front of you.");
         typewriter("Looking around the world you can see the vast futurism of the world as people walk around with robotic body parts and flying cars are abundant in this grand place.");
         System.out.println();
@@ -54,26 +51,29 @@ public class TextBasedRPG {
         typewriter("But here today the selection of champions happened again after hundreds of years passed from past to today.");
         typewriter("It seemed this was their final bout for who would truly overcome who, but a freak accident happened within the time space.");
         typewriter("With selection of heroes for each of their sides, one of the cats had been bestowed with the power of both the cat god and the dog devil before them.");
+        System.out.println("");
+        System.out.println("_____________________________________");
         System.out.println("What is your name?");
-        String name = scan.nextLine();
-        typewriter("That cat is YOU, "+name+", now you must choose your destiny from either taking the side of the cat god with the blue orb, or the dog devil of the red.");
-
-        //use typewriter( ) to print out the intro setup for your story.
-
-        //1. tell us the lore of your world
-        //2. tell us who our character is
-        //3. let us input in a name for our character
-        //4. give us a quest
-        //5. it should end with a choice/decision
-        //6. s
+        System.out.println("_____________________________________");
+        mainPlayer.Name = scan.nextLine();
+        typewriter("\nThat cat is YOU, "+mainPlayer.Name+", now you must choose your destiny from either taking the side of the cat god with the blue orb, or the dog devil of the red.");
     }
 
     public static void blueOrb() {
-        //enter code here
+        //Cat
+        System.out.println("");
+        System.out.println("_____________________________________");
+        System.out.println("");
+        typewriter("You have chosen to join the Cats in Citty Crawl");
     }
 
     public static void redOrb() {
-        //enter code here
+        //Dog
+        System.out.println("");
+        System.out.println("_____________________________________");
+        System.out.println("");
+        typewriter("You have chosen to join the Dogs in ");
+
     }
 
     public static void typewriter(String text) {
@@ -81,7 +81,7 @@ public class TextBasedRPG {
         for (i = 0; i < text.length(); i++) {
             System.out.printf("%c", text.charAt(i));
             try {
-                Thread.sleep(75);//0.5s pause between characters
+                Thread.sleep(30);//0.5s pause between characters
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
