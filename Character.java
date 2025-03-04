@@ -2,10 +2,12 @@ package RPG;
 
 public class Character {
     public String Name;
-    public int[] Inventory;
+    public String[] Inventory = new String[5];
     public float Money;
     public String Level;
     public int maxItems = 5;
+
+    public String Species = "";
 
     public int curHP = 100;
     public int maxHp = 100;

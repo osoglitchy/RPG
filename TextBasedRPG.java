@@ -7,8 +7,8 @@ public class TextBasedRPG {
     public static Scanner scan = new Scanner(System.in);
     public static Random random = new Random();
     //setup player
-    public static Character mainPlayer = new Character("Player", 500);
-
+    public static Character mainPlayer = new Character("Player", 20);
+    public static  Character shopKeeper = new Character("Shop Keeper", 9999999);
     public static void main(String[] args)
     {
         System.out.println("Welcome to our RPG game!");
@@ -61,12 +61,125 @@ public class TextBasedRPG {
 
     public static void blueOrb() {
         //Cat
+        typewriter("You have chosen to join the Cats in Citty Crawl");
+        typewriter("You are magically transported to a Fork in the road!");
+        System.out.println("_____________________________________");
+        cat_fork();
+    }
+
+    public static void cat_fork() {
         System.out.println("");
         System.out.println("_____________________________________");
         System.out.println("");
-        typewriter("You have chosen to join the Cats in Citty Crawl");
+        typewriter("There a fork in the road, and you must choose a direction!");
+        System.out.println("_____________________________________");
+        typewriter("Which direction would you like to go?");
+        System.out.println("A | Shop (Items)");
+        System.out.println("B | Cats (Aura Check)");
+        System.out.println("C | Crafty Crafts");
+
+        String choice = scan.nextLine();
+        if (choice.equalsIgnoreCase("A")) {
+            System.out.println("_____________________________________");
+            typewriter("You have gone down the road to the Shop");
+            typewriter("You have arrived at the Shop!");
+            System.out.println(" ");
+            System.out.println("As you enter the bell rings as the door opens.");
+            typewriter("Shopkeeper: Welcome to the shop!");
+            typewriter("Shopkeeper: Take your pick at any of our fine items!");
+            cat_shop();
+
+
+        }
+        if (choice.equalsIgnoreCase("B")) {
+            System.out.println("_____________________________________");
+            typewriter("You have gone down the road to the Group of Cats!");
+            typewriter("You have arrived at the Group and you must pass the Aura Check!");
+        }
+        if (choice.equalsIgnoreCase("C")) {
+            System.out.println("_____________________________________");
+            typewriter("You have gone down the road to the Crafty Crafts Shop!");
+            typewriter("You have arrived at the Group and you must pass the Aura Check!");
+        }
     }
 
+    public static void cat_shop() {
+
+
+        System.out.println("_____________________________________");
+        typewriter("Shopkeeper: Here are our items:");
+        System.out.println("A | Catnip (HP+) - 10 Coins");
+        System.out.println("B | Fish Scale Armor (DP+) - 20 Coins");
+        System.out.println("C | Metal Claws (AP+) - 15 Coins");
+        System.out.println("");
+        System.out.println("Z | Exit Store");
+        typewriter("You have " + mainPlayer.Money + " Coins, what would you like to buy?");
+        String choice = scan.nextLine();
+        if (choice.equalsIgnoreCase("a")) {
+            if (mainPlayer.Money >= 10) {
+                for (int i = 0; i < mainPlayer.Inventory.length; i++) {
+                    if (mainPlayer.Inventory[i] == null) {
+                        mainPlayer.Inventory[i] = "Catnip";
+                        mainPlayer.Money -= 10;
+                        break;
+                    }
+                }
+                typewriter("Shopkeeper: Here is your catnip!");
+                typewriter("Shopkeeper: Would you like to purchase anything else?");
+                cat_shop();
+            }
+            else {
+                typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Cat-Nip, would you like anything else?");
+                cat_shop();
+            }
+        }
+        if (choice.equalsIgnoreCase("b")) {
+            if (mainPlayer.Money >= 20) {
+                for (int i = 0; i < mainPlayer.Inventory.length; i++) {
+                    if (mainPlayer.Inventory[i] == null) {
+                        mainPlayer.Inventory[i] = "Fish Scale Armor";
+                        mainPlayer.Money -= 20;
+                        break;
+                    }
+                }
+                typewriter("Shopkeeper: Here is your Fish Scale Armor!");
+                typewriter("Shopkeeper: Would you like to purchase anything else?");
+                cat_shop();
+            }
+            else {
+                typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Fish Scale Armor, would you like anything else?");
+                cat_shop();
+            }
+        }
+        if (choice.equalsIgnoreCase("c")) {
+            if (mainPlayer.Money >= 15) {
+                for (int i = 0; i < mainPlayer.Inventory.length; i++) {
+                    if (mainPlayer.Inventory[i] == null) {
+                        mainPlayer.Inventory[i] = "Metal Claws";
+                        mainPlayer.Money -= 15;
+                        break;
+                    }
+                }
+                typewriter("Shopkeeper: Here is your Metal Claws!");
+                typewriter("Shopkeeper: Would you like to purchase anything else?");
+                cat_shop();
+            }
+            else {
+                typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Metal Claws, would you like anything else?");
+                cat_shop();
+            }
+        }
+        if (choice.equalsIgnoreCase("Z")) {
+            typewriter("You bid the Shop Keeper farewell and exit, the bell ringing behind you.");
+            typewriter("Your Inventory now consists of:");
+            for (int i = 0; i < mainPlayer.Inventory.length; i++) {
+                System.out.println(mainPlayer.Inventory[i]);
+            }
+            System.out.println("_____________________________________");
+            typewriter("Your back at the fork in the road!");
+            cat_fork();
+        }
+    }
     public static void redOrb() {
         //Dog
         System.out.println("");
