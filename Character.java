@@ -9,6 +9,8 @@ public class Character {
 
     public String Species = "";
 
+    public int influenced = 0;
+
     public int curHP = 100;
     public int maxHp = 100;
 
