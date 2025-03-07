@@ -221,7 +221,6 @@ public class TextBasedRPG {
             fountain();
         }
     }
-
     public static void cat_shop() {
         System.out.println("_____________________________________");
         typewriter("Shopkeeper: Here are our items:");
@@ -318,7 +317,8 @@ public class TextBasedRPG {
         System.out.println("_____________________________________");
         System.out.println(" ");
         typewriter("You have chosen to join the Dogs in ");
-
+        typewriter("Sorry, this isn't an option!");
+        blueOrb();
     }
 
     public static void dog_fork() {
