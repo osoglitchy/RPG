@@ -115,8 +115,7 @@ public class TextBasedRPG {
             typewriter("Shopkeeper: Welcome to the shop!");
             typewriter("Shopkeeper: Take your pick at any of our fine items!");
             cat_shop();
-        }
-        if (choice.equalsIgnoreCase("B")) {
+        }else if (choice.equalsIgnoreCase("B")) {
             System.out.println("_____________________________________");
             typewriter("You have gone down the road to the Group of Cats!");
             typewriter("As you get close to the group of Cats, you claim you are the hero of the Cats. The Group of Cats hiss at you in disbelief and challenge you to a fight.");
@@ -162,7 +161,7 @@ public class TextBasedRPG {
                 cat_fork();
             }
         }
-        if (choice.equalsIgnoreCase("C")) {
+        else if (choice.equalsIgnoreCase("C")) {
             System.out.println("_____________________________________");
             typewriter("You have gone down the road to the Crafty Crafts City!");
             typewriter("Travelling...");
@@ -171,6 +170,11 @@ public class TextBasedRPG {
             typewriter("You have arrived at the City and there is a fountain.");
             typewriter("On a sign it says throw 1 Coin in and test your luck.");
             fountain();
+        }
+        else {
+            typewriter(RED + "Sorry that's not an option!" + RESET);
+            System.out.println(" ");
+            cat_fork();
         }
     }
 
@@ -196,21 +200,25 @@ public class TextBasedRPG {
                     typewriter(BLUE + "Your pouch suddenly is full.\n30 Coins have been added to your Pouch." + RESET);
                     mainPlayer.Money += 30;
 
-                } else if (reward >= 50) {
+                } else if (reward >= 100) {
                     typewriter(BLUE + "Your pouch starts to swell a small amount.\n15 Coins have been added to your Pouch." + RESET);
                     mainPlayer.Money += 15;
+                } else {
+                    typewriter(BLUE + "You look at your pouch expecting something to happen..." + RESET);
                 }
-                typewriter("Your now staring at the fountain again.");
+                typewriter("Your focus returns to the fountain again.");
                 fountain();
             }
             else {
                 System.out.println("Sorry, you don't have enough Coins!");
                 fountain();
             }
-        }
-        if (choice.equalsIgnoreCase("B")) {
-            typewriter("You turn around and head back ti Citty Crawl.");
+        } else if (choice.equalsIgnoreCase("B")) {
+            typewriter("You turn around and head back to Citty Crawl.");
             cat_fork();
+        } else {
+            typewriter(RED + "Sorry that's not an option!" + RESET);
+            fountain();
         }
     }
 
@@ -241,8 +249,7 @@ public class TextBasedRPG {
                 typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Cat-Nip, would you like anything else?");
                 cat_shop();
             }
-        }
-        if (choice.equalsIgnoreCase("b")) {
+        }else if (choice.equalsIgnoreCase("b")) {
             if (mainPlayer.Money >= 20) {
                 for (int i = 0; i < mainPlayer.Inventory.length; i++) {
                     if (mainPlayer.Inventory[i] == null) {
@@ -259,8 +266,7 @@ public class TextBasedRPG {
                 typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Fish Scale Armor, would you like anything else?");
                 cat_shop();
             }
-        }
-        if (choice.equalsIgnoreCase("c")) {
+        } else if (choice.equalsIgnoreCase("c")) {
             if (mainPlayer.Money >= 15) {
                 for (int i = 0; i < mainPlayer.Inventory.length; i++) {
                     if (mainPlayer.Inventory[i] == null) {
@@ -277,8 +283,7 @@ public class TextBasedRPG {
                 typewriter("Shopkeeper: I'm sorry, you don't have enough money to buy Metal Claws, would you like anything else?");
                 cat_shop();
             }
-        }
-        if (choice.equalsIgnoreCase("Z")) {
+        } else if (choice.equalsIgnoreCase("Z")) {
             typewriter("You bid the Shop Keeper farewell and exit, the bell ringing behind you.");
             typewriter("Your Inventory now consists of:");
             for (int i = 0; i < mainPlayer.Inventory.length; i++) {
@@ -287,6 +292,9 @@ public class TextBasedRPG {
             System.out.println("_____________________________________");
             typewriter("Your back at the fork in the road!");
             cat_fork();
+        } else {
+            typewriter(RED + "Sorry that's not an option!" + RESET);
+            cat_shop();
         }
     }
     public static void gain_followers() {
