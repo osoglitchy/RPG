@@ -18,7 +18,6 @@ public class TextBasedRPG {
 
     public static void main(String[] args)
     {
-
         System.out.println("Welcome to our RPG game!");
         System.out.println("Press ENTER to begin...");
         scan.nextLine();
@@ -26,7 +25,7 @@ public class TextBasedRPG {
         System.out.println();
         System.out.println("Which orb do you pick?...");
         System.out.println("A. Blue Orb");
-        System.out.println("B. Red Orb");
+        //System.out.println("B. Red Orb");
         String choiceOrb = scan.nextLine();
         if (choiceOrb.equalsIgnoreCase("a"))
         {
@@ -49,8 +48,8 @@ public class TextBasedRPG {
         typewriter("Our story begins here...");
         System.out.println("_____________________________________");
 
-        typewriter("You wake up inside the great Green National Park, which you read from one of the signs sitting around. Two orbs appears in front of you.");
-        typewriter("Before examining the two orbs, you look around at the surrounding Futuristic look of the surrounding skyscrapers bordering the National Park Scenery.");
+        typewriter(YELLOW + "You wake up inside the great Green National Park, which you read from one of the signs sitting around. Two orbs appears in front of you." + RESET);
+        typewriter(YELLOW + "Before examining the two orbs, you look around at the surrounding Futuristic look of the surrounding skyscrapers bordering the National Park Scenery." + RESET);
         System.out.println();
         typewriter("The world you reside in is one of controlled chaos that keeps it in its order, held there by the powerful cat god and the opposer dog devil.");
         typewriter("The cat god and the dog devil have always been at odds bringing both creation and destruction within your world.");
@@ -89,7 +88,7 @@ public class TextBasedRPG {
     }
     public static void blueOrb() {
         //Cat
-        typewriter("You have chosen to join the Cats in Citty Crawl");
+        typewriter("You have chosen to join the Cats in the city, Citty Crawl");
         typewriter("You are magically transported to a Fork in the road!");
         System.out.println("_____________________________________");
         cat_fork();
@@ -126,26 +125,95 @@ public class TextBasedRPG {
             typewriter("Press ENTER to roll for your aura! You MUST get at least a 400!");
             scan.nextLine();
             typewriter("Rolling...");
-            int roll = new Random().nextInt(200, 501);
-            typewriter("You tested your luck and your Charisma is " + roll + "");
-            if (roll >= 400) {
+
+            int rolmax = 500;
+            if (mainPlayer.Inventory[1] != null) {
+                rolmax -= 150;
+            }
+            if (mainPlayer.Inventory[2] != null) {
+                rolmax -= 100;
+            }
+            if (mainPlayer.Inventory[3] != null) {
+                rolmax -= 50;
+            }
+            if (mainPlayer.curHP == mainPlayer.maxHp) {
+                rolmax -= 50;
+            }
+            if (mainPlayer.Money >= 30) {
+                rolmax = 0;
+            }
+            typewriter(BLUE + "Your chance to gain your followers are " + (rolmax/500)*100 + "%" + RESET);
+
+            int roll = new Random().nextInt(0, 500);
+            typewriter("You tested your luck and your Charisma is " + roll);
+            if (roll >= rolmax) {
                 gain_followers();
+                System.out.println("_____________________________________");
+                typewriter("You have successfully beat the game! This would've been the option to continue the story in gaining followers and gaining power, but that's all for now...");
+
             }
             else {
                 typewriter("You didn't pass the Charisma Check...");
                 typewriter("The cats attack and you can barely fight back.");
                 typewriter("");
-                typewriter("");
+                typewriter("You escaped out, back to the fork in the road... Come back when you have better stats!");
                 System.out.println("_____________________________________");
-                end("group of angry cats");
+                //end("group of angry cats");
+                cat_fork();
             }
         }
         if (choice.equalsIgnoreCase("C")) {
             System.out.println("_____________________________________");
-            typewriter("You have gone down the road to the Crafty Crafts Shop!");
-            typewriter("You have arrived at the Group and you must pass the Aura Check!");
+            typewriter("You have gone down the road to the Crafty Crafts City!");
+            typewriter("Travelling...");
+            typewriter("                                                 ");
+            //Thread.sleep(2000);//0.5s pause between characters
+            typewriter("You have arrived at the City and there is a fountain.");
+            typewriter("On a sign it says throw 1 Coin in and test your luck.");
+            fountain();
         }
     }
+
+    public static void fountain() {
+        typewriter("You think deeply about what you should do.");
+        System.out.println(" ");
+        System.out.println("_____________________________________");
+        System.out.println("Will you throw 1 coin into the fountain?");
+        System.out.println("A | Spend 1 Coin");
+        System.out.println("B | Return to Citty Crawl");
+        String choice = scan.nextLine();
+        if (choice.equalsIgnoreCase("A")) {
+            if (mainPlayer.Money >= 1) {
+                typewriter("You take a coin out of your pouch and toss into the fountain.");
+                typewriter("The fountain Swirls and splashes...");
+                typewriter("                                                 ");
+                System.out.println(" ");
+                int reward = new Random().nextInt(0,201);
+                if (reward >= 200) {
+                    mainPlayer.Money += 1000;
+                    typewriter(BLUE + "YOU GOT THE JACKPOT.\n1000 Coins have been added to your Pouch." + RESET);
+                } else if (reward >= 150) {
+                    typewriter(BLUE + "Your pouch suddenly is full.\n30 Coins have been added to your Pouch." + RESET);
+                    mainPlayer.Money += 30;
+
+                } else if (reward >= 50) {
+                    typewriter(BLUE + "Your pouch starts to swell a small amount.\n15 Coins have been added to your Pouch." + RESET);
+                    mainPlayer.Money += 15;
+                }
+                typewriter("Your now staring at the fountain again.");
+                fountain();
+            }
+            else {
+                System.out.println("Sorry, you don't have enough Coins!");
+                fountain();
+            }
+        }
+        if (choice.equalsIgnoreCase("B")) {
+            typewriter("You turn around and head back ti Citty Crawl.");
+            cat_fork();
+        }
+    }
+
     public static void cat_shop() {
         System.out.println("_____________________________________");
         typewriter("Shopkeeper: Here are our items:");
@@ -228,8 +296,8 @@ public class TextBasedRPG {
         if (mainPlayer.curAt > mainPlayer.maxAt) {
             mainPlayer.curAt = mainPlayer.maxAt;
         }
-        typewriter("You have gained " + amount_joined + " Followers to your cause and 5 Altruism Aura");
-        typewriter("You now have " + mainPlayer.influenced + " followers and " + mainPlayer.curAt + " Altruism Aura");
+        typewriter(GREEN + "You have gained " + amount_joined + " Followers to your cause and 5 Altruism Aura" + RESET);
+        typewriter(BLUE + "You now have " + mainPlayer.influenced + " followers and " + mainPlayer.curAt + " Altruism Aura" + RESET);
 
         System.out.println("_____________________________________");
         System.out.println(" ");
