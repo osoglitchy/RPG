@@ -24,6 +24,7 @@ public class TextBasedRPG {
         intro();
         System.out.println();
         System.out.println("Which orb do you pick?...");
+        typewriter(RED + "ERROR! - The dog route does not exsist!" + RESET);
         System.out.println("A. Blue Orb");
         //System.out.println("B. Red Orb");
         String choiceOrb = scan.nextLine();
@@ -128,18 +129,25 @@ public class TextBasedRPG {
             int rolmax = 500;
             if (mainPlayer.Inventory[1] != null) {
                 rolmax -= 150;
+                typewriter("You have items in your inventory. Your chances increase!");
+
             }
             if (mainPlayer.Inventory[2] != null) {
                 rolmax -= 100;
+                typewriter("You have items in your inventory. Your chances increase!");
             }
             if (mainPlayer.Inventory[3] != null) {
                 rolmax -= 50;
+                typewriter("You have items in your inventory. Your chances increase!");
             }
             if (mainPlayer.curHP == mainPlayer.maxHp) {
                 rolmax -= 50;
+                typewriter("You your Health is maxed out and you are in best shape. Your chances increase!");
             }
-            if (mainPlayer.Money >= 30) {
+            if (mainPlayer.Money >= 100) {
                 rolmax = 0;
+                typewriter("You have earned more than enough cash to buy off the cats! Your chance is now 100%!");
+
             }
             typewriter(BLUE + "Your chance to gain your followers are " + (rolmax/500)*100 + "%" + RESET);
 
@@ -188,10 +196,10 @@ public class TextBasedRPG {
         String choice = scan.nextLine();
         if (choice.equalsIgnoreCase("A")) {
             if (mainPlayer.Money >= 1) {
+                mainPlayer.Money -= 1;
                 typewriter("You take a coin out of your pouch and toss into the fountain.");
                 typewriter("The fountain Swirls and splashes...");
                 typewriter("                                                 ");
-                System.out.println(" ");
                 int reward = new Random().nextInt(0,201);
                 if (reward >= 200) {
                     mainPlayer.Money += 1000;
@@ -206,6 +214,9 @@ public class TextBasedRPG {
                 } else {
                     typewriter(BLUE + "You look at your pouch expecting something to happen..." + RESET);
                 }
+
+                typewriter(GREEN + "Your pouch now holds " + mainPlayer.Money + " Coins!" + RESET);
+                System.out.println("_____________________________________");
                 typewriter("Your focus returns to the fountain again.");
                 fountain();
             }
@@ -221,6 +232,7 @@ public class TextBasedRPG {
             fountain();
         }
     }
+
     public static void cat_shop() {
         System.out.println("_____________________________________");
         typewriter("Shopkeeper: Here are our items:");
@@ -317,8 +329,7 @@ public class TextBasedRPG {
         System.out.println("_____________________________________");
         System.out.println(" ");
         typewriter("You have chosen to join the Dogs in ");
-        typewriter("Sorry, this isn't an option!");
-        blueOrb();
+
     }
 
     public static void dog_fork() {
