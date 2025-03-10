@@ -66,6 +66,7 @@ public class TextBasedRPG {
         typewriter("In this game, you will have a lot of different stats which can give you different strengths.");
         displayStats();
 
+
         System.out.println(" ");
         System.out.println("_____________________________________");
         System.out.println("What is your name?");
