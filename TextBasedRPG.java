@@ -18,30 +18,33 @@ public class TextBasedRPG {
 
     public static void main(String[] args)
     {
-        System.out.println("Welcome to our RPG game!");
-        System.out.println("Press ENTER to begin...");
-        scan.nextLine();
-        intro();
-        System.out.println();
-        System.out.println("Which orb do you pick?...");
-        typewriter(RED + "ERROR! - The dog route does not exsist!" + RESET);
-        System.out.println("A. Blue Orb");
-        //System.out.println("B. Red Orb");
-        String choiceOrb = scan.nextLine();
-        if (choiceOrb.equalsIgnoreCase("a"))
-        {
-            blueOrb();
-        }
-        else if (choiceOrb.equalsIgnoreCase("b"))
-        {
-            redOrb();
-        }
-        else {
-            System.out.println("Error. Try again.");
+        while (mainPlayer.curHP >= 0) {
+            System.out.println("Welcome to our RPG game!");
+            System.out.println("Press ENTER to begin...");
+            scan.nextLine();
+            intro();
+            System.out.println();
+            System.out.println("Which orb do you pick?...");
+            typewriter(RED + "ERROR! - The dog route does not exsist!" + RESET);
             System.out.println("A. Blue Orb");
-            System.out.println("B. Red Orb");
-            choiceOrb = scan.nextLine();
+            //System.out.println("B. Red Orb");
+            String choiceOrb = scan.nextLine();
+            if (choiceOrb.equalsIgnoreCase("a"))
+            {
+                blueOrb();
+            }
+            else if (choiceOrb.equalsIgnoreCase("b"))
+            {
+                redOrb();
+            }
+            else {
+                System.out.println("Error. Try again.");
+                System.out.println("A. Blue Orb");
+                System.out.println("B. Red Orb");
+                choiceOrb = scan.nextLine();
+            }
         }
+     end("Insufficient Health!");
     }
 
     public static void intro()
@@ -79,12 +82,12 @@ public class TextBasedRPG {
         System.out.println("_____________________________________");
         typewriter(GREEN + "Name: " + mainPlayer.Name + RESET);
         typewriter(GREEN + "Coins: " + mainPlayer.Money + RESET);
-        System.out.println(RED + "Health Points: " + mainPlayer.curHP + "/" + mainPlayer.maxHp + RESET);
-        System.out.println(RED + "Magic Points: " + mainPlayer.curMP + "/" + mainPlayer.maxMp + RESET);
-        System.out.println(RED + "Attack Points: " + mainPlayer.curAP + "/" + mainPlayer.maxAp + RESET);
-        System.out.println(RED + "Defense Points: " + mainPlayer.curDP + "/" + mainPlayer.maxDp + RESET);
-        System.out.println(RED + "Altruism Aura: " + mainPlayer.curAt + "/" + mainPlayer.maxAt + RESET);
-        System.out.println(RED + "Devilish Aura: " + mainPlayer.curDv + "/" + mainPlayer.maxDv + RESET);
+        typewriter(GREEN + "Health Points: " + mainPlayer.curHP + "/" + mainPlayer.maxHp + RESET);
+        typewriter(GREEN + "Magic Points: " + mainPlayer.curMP + "/" + mainPlayer.maxMp + RESET);
+        typewriter(GREEN + "Attack Points: " + mainPlayer.curAP + "/" + mainPlayer.maxAp + RESET);
+        typewriter(GREEN + "Defense Points: " + mainPlayer.curDP + "/" + mainPlayer.maxDp + RESET);
+        typewriter(GREEN + "Altruism Aura: " + mainPlayer.curAt + "/" + mainPlayer.maxAt + RESET);
+        typewriter(GREEN + "Devilish Aura: " + mainPlayer.curDv + "/" + mainPlayer.maxDv + RESET);
 
     }
     public static void blueOrb() {
@@ -122,47 +125,56 @@ public class TextBasedRPG {
             typewriter("As you get close to the group of Cats, you claim you are the hero of the Cats. The Group of Cats hiss at you in disbelief and challenge you to a fight.");
             typewriter("You deny being false, you must pass the Charisma Check in order to prove yourself!");
             System.out.println("_____________________________________");
-            typewriter("Press ENTER to roll for your aura! You MUST get at least a 400!");
+            typewriter("Press ENTER to roll for your aura! Your chances start at 500 and for each item or bonus you have gotten will improve your chances!");
             scan.nextLine();
             typewriter("Rolling...");
 
             int rolmax = 500;
             if (mainPlayer.Inventory[1] != null) {
                 rolmax -= 150;
-                typewriter("You have items in your inventory. Your chances increase!");
+                typewriter(BLUE + "You have items in your inventory. Your chances increase!" + RESET);
 
             }
             if (mainPlayer.Inventory[2] != null) {
                 rolmax -= 100;
-                typewriter("You have items in your inventory. Your chances increase!");
+                typewriter(BLUE + "You have items in your inventory. Your chances increase!" + RESET);
             }
             if (mainPlayer.Inventory[3] != null) {
                 rolmax -= 50;
-                typewriter("You have items in your inventory. Your chances increase!");
+                typewriter(BLUE + "You have items in your inventory. Your chances increase!" + RESET);
             }
             if (mainPlayer.curHP == mainPlayer.maxHp) {
                 rolmax -= 50;
-                typewriter("You your Health is maxed out and you are in best shape. Your chances increase!");
+                typewriter(BLUE + "You your Health is maxed out and you are in best shape. Your chances increase!" + RESET);
             }
             if (mainPlayer.Money >= 100) {
                 rolmax = 0;
-                typewriter("You have earned more than enough cash to buy off the cats! Your chance is now 100%!");
+                typewriter(BLUE + "You have earned more than enough cash to buy off the cats! Your chance is now 100%!" + RESET);
 
             }
-            typewriter(BLUE + "Your chance to gain your followers are " + (rolmax/500)*100 + "%" + RESET);
+            typewriter(BLUE + "After adding up your bonuses, you must get a " + rolmax + " or higher to gain the Cats' trust!" + RESET);
 
             int roll = new Random().nextInt(0, 500);
             typewriter("You tested your luck and your Charisma is " + roll);
+            System.out.println(GREEN + "You tested your luck and you rolled a " + roll + " and you needed a " + rolmax + " or higher!" +  RESET);
+
             if (roll >= rolmax) {
-                gain_followers();
+                gain_followers(4);
                 System.out.println("_____________________________________");
                 typewriter("You have successfully beat the game! This would've been the option to continue the story in gaining followers and gaining power, but that's all for now...");
-
             }
             else {
                 typewriter("You didn't pass the Charisma Check...");
                 typewriter("The cats attack and you can barely fight back.");
                 typewriter("");
+                typewriter(BLUE + "You lose 30 Health!" + RESET);
+                mainPlayer.curHP -= 30;
+                if (mainPlayer.curHP < 0) {
+                    return;
+                }
+                typewriter(GREEN + "Your health is now " + mainPlayer.curHP + "/" + mainPlayer.maxHp + RESET);
+                typewriter(BLUE + "Try your luck in Crafty Crafts at the Fountain or buy some items in the shop to increase your chances!" + RESET);
+
                 typewriter("You escaped out, back to the fork in the road... Come back when you have better stats!");
                 System.out.println("_____________________________________");
                 //end("group of angry cats");
@@ -308,14 +320,14 @@ public class TextBasedRPG {
             cat_shop();
         }
     }
-    public static void gain_followers() {
+    public static void gain_followers(int followers) {
       int amount_joined = new Random().nextInt(1,8);
-        mainPlayer.influenced += amount_joined;
+        mainPlayer.influenced += followers;
         mainPlayer.curAt += 5;
         if (mainPlayer.curAt > mainPlayer.maxAt) {
             mainPlayer.curAt = mainPlayer.maxAt;
         }
-        typewriter(GREEN + "You have gained " + amount_joined + " Followers to your cause and 5 Altruism Aura" + RESET);
+        typewriter(GREEN + "You have gained " + followers + " Followers to your cause and 5 Altruism Aura" + RESET);
         typewriter(BLUE + "You now have " + mainPlayer.influenced + " followers and " + mainPlayer.curAt + " Altruism Aura" + RESET);
 
         System.out.println("_____________________________________");
@@ -353,7 +365,7 @@ public class TextBasedRPG {
         System.out.println(" ");
         System.out.println("_____________________________________");
         System.out.println(" ");
-        typewriter("You have lost the game to " + Reason + "!");
+        typewriter(RED + "You have lost the game to " + Reason + "!" + RESET);
         typewriter("Thanks for Playing!");
     }
 
