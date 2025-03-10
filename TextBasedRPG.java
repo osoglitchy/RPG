@@ -66,7 +66,6 @@ public class TextBasedRPG {
         typewriter("In this game, you will have a lot of different stats which can give you different strengths.");
         displayStats();
 
-
         System.out.println(" ");
         System.out.println("_____________________________________");
         System.out.println("What is your name?");
@@ -346,7 +345,10 @@ public class TextBasedRPG {
     }
 
     public static void dog_fork() {
-
+        typewriter("You wake up in the Dog City!");
+        typewriter(RED + "You are brutally mauled by a pack of dogs as they obviously don't like cats.!" + RESET);
+        mainPlayer.curHP -= 101;
+        return;
     }
 
     public static void typewriter(String text) {
@@ -369,10 +371,4 @@ public class TextBasedRPG {
         typewriter(RED + "You have lost the game to " + Reason + "!" + RESET);
         typewriter("Thanks for Playing!");
     }
-
-
-
-
-
-    //file ends on next line
 }
