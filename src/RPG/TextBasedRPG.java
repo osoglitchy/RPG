@@ -8,7 +8,7 @@ public class TextBasedRPG {
     public static Random random = new Random();
     //setup player
     public static Character mainPlayer = new Character("Player", 20);
-    public static  Character shopKeeper = new Character("Shop Keeper", 9999999);
+    public static Character shopKeeper = new Character("Shop Keeper", 9999999);
 
     public static final String RESET = "\033[0m"; // Text Reset
     public static final String RED = "\033[0;31m"; // RED
