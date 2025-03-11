@@ -340,7 +340,10 @@ public class TextBasedRPG {
         System.out.println(" ");
         System.out.println("_____________________________________");
         System.out.println(" ");
-        typewriter("You have chosen to join the Dogs in ");
+        typewriter("You have chosen to join the Dogs in...");
+        typewriter("As you get teleported in, you suddenly get brutally mauled by a pack of dogs.");
+        mainPlayer.curHP = -1;
+        return;
 
     }
 
